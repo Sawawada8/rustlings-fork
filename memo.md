@@ -1,0 +1,4 @@
+## command
+```
+rustlings watch
+```
