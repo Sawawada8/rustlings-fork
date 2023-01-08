@@ -14,7 +14,7 @@
 
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+// // I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -40,6 +40,51 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // will be the number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+
+        // MY_TODO: 無理矢理感あるので、リファクタリングしたい
+        let mut t = Team { 
+            name: team_1_name.clone(),
+            goals_scored: team_1_score,
+            goals_conceded: team_2_score,
+        };
+        let mut tt = Team { 
+            name: team_2_name.clone(),
+            goals_scored: team_2_score,
+            goals_conceded: team_1_score,
+        };
+
+        match scores.get(&t.name) {
+            Some(val) => {
+                scores.insert(
+                    t.name.clone(),
+                    Team {
+                        name: val.name.clone(),
+                        goals_scored: val.goals_scored + t.goals_scored,
+                        goals_conceded: val.goals_conceded + t.goals_conceded,
+                    }
+                );
+            },
+            None => {
+                scores.insert(t.name.clone(), t);
+            }
+        };
+        match scores.get(&tt.name) {
+            Some(val) => {
+                scores.insert(
+                    tt.name.clone(),
+                    Team {
+                        name: val.name.clone(),
+                        goals_scored: val.goals_scored + tt.goals_scored,
+                        goals_conceded: val.goals_conceded + tt.goals_conceded,
+                    }
+                );
+            },
+            None => {
+                scores.insert(tt.name.clone(), tt);
+            }
+        };
+
+        // scores.entry(t.name).and_modify(|team| *team += 1).or_insert(1);
     }
     scores
 }
