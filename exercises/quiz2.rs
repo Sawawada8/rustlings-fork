@@ -30,6 +30,7 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function signature!
+    // pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
     pub fn transformer(input: Vec<(&str, Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
         let mut output: Vec<String> = vec![];
